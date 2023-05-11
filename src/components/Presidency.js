@@ -1,46 +1,46 @@
 // Presidency.js
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import CustomSlider from "./CustomSlider";
 import { candidates } from "../data";
+import { AppContext } from "../context";
 
-const Presidency = ({ candidatesData, setCandidatesData }) => {
-  const [percentages, setPercentages] = useState(
-    Object.keys(candidatesData).length > 0
-      ? candidatesData
-      : candidates.reduce((acc, candidate) => {
-          acc[candidate.id] = candidate.withdrawn ? null : 0;
-          return acc;
-        }, {})
-  );
+const Presidency = () => {
+  const { state, dispatch } = useContext(AppContext);
+  const { candidatesData } = state;
 
   const [lastMovedSlider, setLastMovedSlider] = useState(null);
 
   useEffect(() => {
-    const totalPercentage = Object.values(percentages).reduce(
+    const totalPercentage = Object.values(candidatesData).reduce(
       (sum, percentage) => sum + (percentage ?? 0),
       0
     );
 
     if (totalPercentage > 100 && lastMovedSlider != null) {
-      setPercentages((prevPercentages) => ({
-        ...prevPercentages,
-        [lastMovedSlider]: parseFloat(
-          (prevPercentages[lastMovedSlider] - (totalPercentage - 100)).toFixed(
-            2
-          )
-        ),
-      }));
+      dispatch({
+        type: "SET_CANDIDATES_DATA",
+        payload: {
+          ...candidatesData,
+          [lastMovedSlider]: parseFloat(
+            (candidatesData[lastMovedSlider] - (totalPercentage - 100)).toFixed(
+              2
+            )
+          ),
+        },
+      });
     }
-  }, [percentages, lastMovedSlider]);
+  }, [candidatesData, lastMovedSlider, dispatch]);
 
   const handleSliderChange = (id, value) => {
-    setPercentages({
-      ...percentages,
-      [id]: parseFloat(value.toFixed(2)),
+    dispatch({
+      type: "SET_CANDIDATES_DATA",
+      payload: {
+        ...candidatesData,
+        [id]: parseFloat(value.toFixed(2)),
+      },
     });
     setLastMovedSlider(id);
   };
-
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-20">
       {candidates.map((candidate) => (
@@ -59,13 +59,13 @@ const Presidency = ({ candidatesData, setCandidatesData }) => {
 
           <div className="relative">
             <span className="absolute top-0 md:top-10 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-md md:text-2xl font-bold">
-              %{percentages[candidate.id]?.toFixed(2) ?? "--"}
+              %{candidatesData[candidate.id]?.toFixed(2) ?? "0.00"}
             </span>
             <CustomSlider
               min={0}
               max={100}
               step={0.01}
-              value={percentages[candidate.id] ?? 0}
+              value={candidatesData[candidate.id] ?? 0}
               onChange={(value) => handleSliderChange(candidate.id, value)}
               disabled={candidate.withdrawn}
             />
