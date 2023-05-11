@@ -13,6 +13,7 @@ const candidates = [
     id: 2,
     name: "Muharrem İnce",
     imageUrl: ince,
+    withdrawn: true,
   },
   {
     id: 3,

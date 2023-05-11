@@ -6,6 +6,9 @@ import Share from "./components/Share";
 
 const App = () => {
   const [currentSection, setCurrentSection] = useState("presidency");
+  const [candidatesData, setCandidatesData] = useState({});
+  const [partiesData, setPartiesData] = useState({});
+  const [countryData, setCountryData] = useState({});
 
   const handleButtonClick = () => {
     switch (currentSection) {
@@ -35,9 +38,24 @@ const App = () => {
 
   return (
     <div>
-      {currentSection === "presidency" && <Presidency />}
-      {currentSection === "parties" && <Parties />}
-      {currentSection === "country" && <Country />}
+      <div
+        className={`h-auto ${currentSection !== "presidency" ? "hidden" : ""}`}
+      >
+        <Presidency
+          candidatesData={candidatesData}
+          setCandidatesData={setCandidatesData}
+        />
+      </div>
+      <div className={`h-auto ${currentSection !== "parties" ? "hidden" : ""}`}>
+        <Parties partiesData={partiesData} setPartiesData={setPartiesData} />
+      </div>
+      <div className={`h-auto ${currentSection !== "map" ? "hidden" : ""}`}>
+        <Country
+          countriesData={countryData}
+          setCountriesData={setCountryData}
+        />
+      </div>
+
       <div className="mt-4 flex">
         {currentSection !== "presidency" && (
           <button onClick={handleBackButtonClick} className="mr-2">

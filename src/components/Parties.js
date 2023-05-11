@@ -1,6 +1,6 @@
 import React from "react";
 
-function Parties() {
+function Parties({ partiesData, setPartiesData }) {
   return <div>Parties</div>;
 }
 

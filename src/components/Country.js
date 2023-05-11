@@ -1,6 +1,6 @@
 import React from "react";
 
-function Country() {
+function Country({ countryData, setCountryData }) {
   return <div>Country</div>;
 }
 

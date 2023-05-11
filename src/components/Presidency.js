@@ -1,51 +1,48 @@
-import React, { useState } from "react";
-import Slider from "rc-slider";
-import Tooltip from "rc-tooltip";
-import "rc-slider/assets/index.css";
-import "rc-tooltip/assets/bootstrap.css";
-import "../custom-slider.css"; // Add this line to import the custom styles
-
+// Presidency.js
+import React, { useState, useEffect } from "react";
+import CustomSlider from "./CustomSlider";
 import { candidates } from "../data";
 
-const Presidency = () => {
+const Presidency = ({ candidatesData, setCandidatesData }) => {
   const [percentages, setPercentages] = useState(
-    candidates.reduce((acc, candidate) => {
-      acc[candidate.id] = 0;
-      return acc;
-    }, {})
+    Object.keys(candidatesData).length > 0
+      ? candidatesData
+      : candidates.reduce((acc, candidate) => {
+          acc[candidate.id] = candidate.withdrawn ? null : 0;
+          return acc;
+        }, {})
   );
 
-  const handleSliderChange = (id, value) => {
-    const newPercentages = {
-      ...percentages,
-      [id]: parseFloat(value.toFixed(2)),
-    };
-    const totalPercentage = Object.values(newPercentages).reduce(
-      (sum, percentage) => sum + percentage,
+  const [lastMovedSlider, setLastMovedSlider] = useState(null);
+
+  useEffect(() => {
+    const totalPercentage = Object.values(percentages).reduce(
+      (sum, percentage) => sum + (percentage ?? 0),
       0
     );
 
-    if (totalPercentage <= 100) {
-      setPercentages(newPercentages);
+    if (totalPercentage > 100 && lastMovedSlider != null) {
+      setPercentages((prevPercentages) => ({
+        ...prevPercentages,
+        [lastMovedSlider]: parseFloat(
+          (prevPercentages[lastMovedSlider] - (totalPercentage - 100)).toFixed(
+            2
+          )
+        ),
+      }));
     }
+  }, [percentages, lastMovedSlider]);
+
+  const handleSliderChange = (id, value) => {
+    setPercentages({
+      ...percentages,
+      [id]: parseFloat(value.toFixed(2)),
+    });
+    setLastMovedSlider(id);
   };
 
-  const handle = (props) => {
-    const { value, dragging, index, ...restProps } = props;
-    return (
-      <Tooltip
-        prefixCls="rc-slider-tooltip"
-        overlay={value.toFixed(2)}
-        visible={dragging}
-        placement="top"
-        key={index}
-      >
-        <Slider.Handle value={value} {...restProps} />
-      </Tooltip>
-    );
-  };
   return (
-    <div className="mx-4 my-4 sm:mx-8 sm:my-8 md:mx-12 md:my-12 flex justify-center items-center gap-x-80 gap-y-8 sm:gap-48 md:gap-20 flex-wrap ">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
       {candidates.map((candidate) => (
         <div
           key={candidate.id}
@@ -56,18 +53,18 @@ const Presidency = () => {
             alt={candidate.name}
             className="w-32 h-80 object-cover"
           />
-          <div className="flex flex-col items-center space-y-2">
-            <span className="text-2xl font-bold">
-              %{percentages[candidate.id].toFixed(2)}
+          <div className="relative">
+            <span className="absolute top-10 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-2xl font-bold">
+              %{percentages[candidate.id]?.toFixed(2) ?? "--"}
             </span>
-            <Slider
+            <CustomSlider
               min={0}
               max={100}
               step={0.01}
-              value={percentages[candidate.id]}
+              value={percentages[candidate.id] ?? 0}
               onChange={(value) => handleSliderChange(candidate.id, value)}
-              handle={handle}
               className="w-64"
+              disabled={candidate.withdrawn}
             />
           </div>
         </div>
