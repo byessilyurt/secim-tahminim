@@ -75,6 +75,9 @@ const CountrySection = () => {
               handleCityMouseEnter(cityId)
             );
             path.addEventListener("touchstart", () => handleCityClick(cityId));
+            path.addEventListener("touchmove", () =>
+              handleCityMouseEnter(cityId)
+            );
           });
         }}
         renumerateIRIElements={false}
