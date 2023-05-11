@@ -24,7 +24,7 @@ const CountrySection = () => {
 
   return (
     <div
-      className="flex flex-col items-center justify-center min-h-screen bg-white px-4 sm:px-0"
+      className="flex flex-col items-center justify-start min-h-screen bg-white px-4 sm:px-0"
       onMouseDown={() => setMouseDown(true)}
       onMouseUp={() => setMouseDown(false)}
     >
