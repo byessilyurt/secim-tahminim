@@ -58,6 +58,7 @@ const CountrySection = () => {
 
       <ReactSVG
         src={turkeySvg}
+        // Inside the beforeInjection function
         beforeInjection={(svg) => {
           svg.classList.add(
             "w-full",
@@ -67,15 +68,12 @@ const CountrySection = () => {
             "2xl:max-w-screen-lg",
             "mx-auto"
           );
+
           Array.from(svg.querySelectorAll("path")).forEach((path) => {
             const cityId = path.getAttribute("id");
             path.style.fill = cityColors[cityId] || "lightgray";
-            path.addEventListener("mousedown", () => handleCityClick(cityId));
-            path.addEventListener("mouseenter", () =>
-              handleCityMouseEnter(cityId)
-            );
             path.addEventListener(
-              "touchstart",
+              "pointerdown",
               (event) => {
                 event.preventDefault();
                 handleCityClick(cityId);
@@ -83,10 +81,12 @@ const CountrySection = () => {
               { passive: false }
             );
             path.addEventListener(
-              "touchmove",
+              "pointermove",
               (event) => {
-                event.preventDefault();
-                handleCityMouseEnter(cityId);
+                if (event.buttons === 1) {
+                  event.preventDefault();
+                  handleCityClick(cityId);
+                }
               },
               { passive: false }
             );
