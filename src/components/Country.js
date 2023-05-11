@@ -70,13 +70,25 @@ const CountrySection = () => {
           Array.from(svg.querySelectorAll("path")).forEach((path) => {
             const cityId = path.getAttribute("id");
             path.style.fill = cityColors[cityId] || "lightgray";
-            path.addEventListener("click", () => handleCityClick(cityId));
+            path.addEventListener("mousedown", () => handleCityClick(cityId));
             path.addEventListener("mouseenter", () =>
               handleCityMouseEnter(cityId)
             );
-            path.addEventListener("touchstart", () => handleCityClick(cityId));
-            path.addEventListener("touchmove", () =>
-              handleCityMouseEnter(cityId)
+            path.addEventListener(
+              "touchstart",
+              (event) => {
+                event.preventDefault();
+                handleCityClick(cityId);
+              },
+              { passive: false }
+            );
+            path.addEventListener(
+              "touchmove",
+              (event) => {
+                event.preventDefault();
+                handleCityMouseEnter(cityId);
+              },
+              { passive: false }
             );
           });
         }}
