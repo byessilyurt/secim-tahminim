@@ -7,7 +7,7 @@ const CustomSlider = ({ min, max, step, value, onChange, disabled }) => {
   };
 
   return (
-    <div className="w-full relative">
+    <div className="w-full relative my-4">
       <input
         type="range"
         min={min}
@@ -15,7 +15,7 @@ const CustomSlider = ({ min, max, step, value, onChange, disabled }) => {
         step={step}
         value={value}
         onChange={handleChange}
-        className="slider w-full h-1.5 bg-gray-200 rounded-full outline-none appearance-none cursor-pointer"
+        className="slider w-40 h-1.5 bg-gray-200 bg-opacity-30 rounded-full outline-none appearance-none cursor-pointer"
         disabled={disabled}
       />
       <div

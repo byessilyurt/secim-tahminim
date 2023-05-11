@@ -63,7 +63,12 @@ const App = () => {
           </button>
         )}
         {currentSection !== "country" && (
-          <button onClick={handleButtonClick}>Next</button>
+          <button
+            onClick={handleButtonClick}
+            className="fixed bottom-0 w-full py-4 text-xl text-teal-800 font-bold border-2 border-solid border-teal-500 bg-slate-100 bg-opacity-70 md:bg-opacity-0 "
+          >
+            Devam Et
+          </button>
         )}
         {currentSection === "country" && <Share />}
       </div>

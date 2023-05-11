@@ -42,19 +42,23 @@ const Presidency = ({ candidatesData, setCandidatesData }) => {
   };
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-20">
       {candidates.map((candidate) => (
         <div
           key={candidate.id}
-          className="flex flex-col items-center justify-center space-y-4"
+          className="flex flex-col items-center justify-center space-y-4 "
         >
           <img
             src={candidate.imageUrl}
             alt={candidate.name}
             className="w-32 h-80 object-cover"
           />
+          <div className="text-center">
+            <h2 className="text-xl font-bold">{candidate.name}</h2>
+          </div>
+
           <div className="relative">
-            <span className="absolute top-10 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-2xl font-bold">
+            <span className="absolute top-0 md:top-10 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-md md:text-2xl font-bold">
               %{percentages[candidate.id]?.toFixed(2) ?? "--"}
             </span>
             <CustomSlider
@@ -63,7 +67,6 @@ const Presidency = ({ candidatesData, setCandidatesData }) => {
               step={0.01}
               value={percentages[candidate.id] ?? 0}
               onChange={(value) => handleSliderChange(candidate.id, value)}
-              className="w-64"
               disabled={candidate.withdrawn}
             />
           </div>
