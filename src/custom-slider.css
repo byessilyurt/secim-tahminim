@@ -1,0 +1,17 @@
+.rc-slider-track {
+  background-color: #3b82f6; /* Change this color to your desired track color */
+  height: 4px; /* Change the height to your desired track height */
+}
+
+.rc-slider-rail {
+  background-color: #cbd5e1; /* Change this color to your desired rail color */
+  height: 4px; /* Change the height to your desired rail height */
+}
+
+.rc-slider-handle {
+  border: solid 2px #3b82f6; /* Change this color to your desired handle border color */
+  width: 24px; /* Change the width to your desired handle width */
+  height: 24px; /* Change the height to your desired handle height */
+  background-color: #ffffff; /* Change this color to your desired handle background color */
+  margin-top: -10px; /* Adjust the margin to center the handle on the track */
+}
