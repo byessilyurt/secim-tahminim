@@ -39,6 +39,8 @@ const CountrySection = () => {
       className="flex flex-col items-center justify-start min-h-screen bg-white px-4 sm:px-0"
       onMouseDown={() => setMouseDown(true)}
       onMouseUp={() => setMouseDown(false)}
+      onTouchStart={() => setMouseDown(true)}
+      onTouchEnd={() => setMouseDown(false)}
     >
       <div className="fixed top-1 left-0 text-sm sm:text-base font-medium mt-4 ml-4 flex items-center">
         <FaGithub className="mr-2" />
@@ -72,6 +74,7 @@ const CountrySection = () => {
             path.addEventListener("mouseenter", () =>
               handleCityMouseEnter(cityId)
             );
+            path.addEventListener("touchstart", () => handleCityClick(cityId));
           });
         }}
         renumerateIRIElements={false}
