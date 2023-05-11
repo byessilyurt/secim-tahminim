@@ -13,9 +13,6 @@ const App = () => {
   const handleButtonClick = () => {
     switch (currentSection) {
       case "presidency":
-        setCurrentSection("parties");
-        break;
-      case "parties":
         setCurrentSection("country");
         break;
       default:
@@ -25,11 +22,8 @@ const App = () => {
 
   const handleBackButtonClick = () => {
     switch (currentSection) {
-      case "parties":
-        setCurrentSection("presidency");
-        break;
       case "country":
-        setCurrentSection("parties");
+        setCurrentSection("presidency");
         break;
       default:
         break;
@@ -46,10 +40,7 @@ const App = () => {
           setCandidatesData={setCandidatesData}
         />
       </div>
-      <div className={`h-auto ${currentSection !== "parties" ? "hidden" : ""}`}>
-        <Parties partiesData={partiesData} setPartiesData={setPartiesData} />
-      </div>
-      <div className={`h-auto ${currentSection !== "map" ? "hidden" : ""}`}>
+      <div className={`h-auto ${currentSection !== "country" ? "hidden" : ""}`}>
         <Country
           countriesData={countryData}
           setCountriesData={setCountryData}

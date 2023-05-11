@@ -27,4 +27,11 @@ const candidates = [
   },
 ];
 
-export { candidates };
+const colorMap = {
+  1: "orange",
+  2: "lightgray",
+  3: "red",
+  4: "gray",
+};
+
+export { candidates, colorMap };

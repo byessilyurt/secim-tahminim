@@ -7,7 +7,7 @@ const CustomSlider = ({ min, max, step, value, onChange, disabled }) => {
   };
 
   return (
-    <div className="w-full relative my-4">
+    <div className="w-full relative my-4 sm:my-0">
       <input
         type="range"
         min={min}
