@@ -19,15 +19,15 @@ const ShareModal = ({
   const { dispatch } = useContext(AppContext);
 
   const handleTwitterShare = () => {
-    generateImage();
-    toast.info(
-      "Twitter'a yönlendiriliyorsun. İndirilien resim dosyasını twitine eklemeyi unutma!",
-      {
-        position: toast.POSITION.TOP_CENTER,
-        autoClose: 5000, // auto close after 5 seconds
-      }
-    );
-
+    generateImage().then(() => {
+      toast.info(
+        "Twitter'a yönlendiriliyorsun. İndirilien resim dosyasını twitine eklemeyi unutma!",
+        {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 5000,
+        }
+      );
+    });
     const text = encodeURIComponent("Benim seçim tahminim bu şekilde");
     const url = encodeURIComponent("http://secim-tahminim.firebaseapp.com"); // optional, URL to share
     const hashtags = encodeURIComponent("Seçim2023,14Mayıs "); // optional, comma separated list of hashtags without #
@@ -38,27 +38,44 @@ const ShareModal = ({
   };
 
   const generateImage = () => {
-    dispatch({ type: "SHOW_TOOLTIP", payload: false });
+    return new Promise((resolve, reject) => {
+      dispatch({ type: "SHOW_TOOLTIP", payload: false });
 
-    const node = document.getElementById("share-content");
-    node.style.display = "block";
+      const node = document.getElementById("share-content");
+      node.style.display = "block";
 
-    toPng(node)
-      .then((dataUrl) => {
-        const link = document.createElement("a");
-        link.download = "image.png";
-        link.href = dataUrl;
-        link.click();
-
-        node.style.display = "none";
-        dispatch({ type: "SHOW_TOOLTIP", payload: true });
-      })
-      .catch((error) => {
-        console.error("oops, something went wrong!", error);
-        node.style.display = "none";
-        dispatch({ type: "SHOW_TOOLTIP", payload: true });
+      const images = Array.from(node.getElementsByTagName("img"));
+      const loadedImages = images.map((img) => {
+        if (img.complete) return Promise.resolve();
+        return new Promise((resolve, reject) => {
+          img.onload = resolve;
+          img.onerror = reject;
+        });
       });
+
+      Promise.all(loadedImages)
+        .then(() => {
+          return toPng(node);
+        })
+        .then((dataUrl) => {
+          const link = document.createElement("a");
+          link.download = "image.png";
+          link.href = dataUrl;
+          link.click();
+
+          node.style.display = "none";
+          dispatch({ type: "SHOW_TOOLTIP", payload: true });
+          resolve();
+        })
+        .catch((error) => {
+          console.error("oops, something went wrong!", error);
+          node.style.display = "none";
+          dispatch({ type: "SHOW_TOOLTIP", payload: true });
+          reject(error);
+        });
+    });
   };
+
   return (
     <Modal
       isOpen={isOpen}

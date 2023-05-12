@@ -34,7 +34,7 @@ const CountrySection = () => {
           Lütfen, renk seçiniz.
         </div>
       )}
-      <div className="fixed top-1 left-0 sm:text-sm text-xs font-medium mt-4 ml-4 flex items-center">
+      <div className="fixed top-4 left-0 sm:text-sm text-xs font-medium mt-4 ml-4 flex items-center">
         <FaGithub className="mr-2" />
         <a
           className="opacity-50"
@@ -44,7 +44,7 @@ const CountrySection = () => {
           @byessilyurt
         </a>
       </div>
-      <h1 className="fixed top-0 text-xl sm:text-4xl font-medium md:mt-4 mt-16 ">
+      <h1 className="fixed top-0 text-xl sm:text-4xl font-medium md:mt-4 mt-16">
         Türkiye Seçim Haritası 🇹🇷
       </h1>
 
