@@ -12,7 +12,6 @@ const CountrySection = () => {
 
   const [selectedColor, setSelectedColor] = useState(null);
   const [cityColors, setCityColors] = useState(countryData);
-  const [mouseDown, setMouseDown] = useState(false);
 
   useEffect(() => {
     dispatch({
@@ -29,13 +28,7 @@ const CountrySection = () => {
   };
 
   return (
-    <div
-      className="flex flex-col items-center justify-start min-h-screen bg-white px-4 sm:px-0"
-      onMouseDown={() => setMouseDown(true)}
-      onMouseUp={() => setMouseDown(false)}
-      onTouchStart={() => setMouseDown(true)}
-      onTouchEnd={() => setMouseDown(false)}
-    >
+    <div className="flex flex-col items-center justify-start min-h-screen bg-white px-4 sm:px-0">
       <div className="fixed top-1 left-0 sm:text-sm text-xs font-medium mt-4 ml-4 flex items-center">
         <FaGithub className="mr-2" />
         <a
