@@ -1,70 +1,18 @@
-# Getting Started with Create React App
+[See Demo](https://secim-tahminim.firebaseapp.com)
+This project is an interactive prediction tool for the 2023 Turkey Elections. The application allows users to visualize their election predictions, by choosing the winning party for each city, and specifying the vote percentage for each presidential candidate.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The main features of the application are:
 
-## Available Scripts
+- The ability to paint each city in Turkey with a color representing the predicted winning party.
+- A summary of the predicted vote percentage for each presidential candidate.
+- A share feature that generates an image of the user's prediction, which can then be shared on social media platforms like Twitter.
 
-In the project directory, you can run:
+The project is built using React, along with libraries such as React SVG for rendering SVG maps, HTML to Image for generating shareable images, and Tailwind CSS for styling.
 
-### `npm start`
+## Noteworthy Implementation Details:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1.  **Interactive SVG Map:** The app uses an SVG map of Turkey where each city is a clickable path. On clicking or touch-move over a city, the city is painted with the currently selected party's color.
+2.  **Presidential Vote Percentage:** The app allows users to set the vote percentage for each presidential candidate. The percentages are adjustable such that they always sum up to 100%. This feature required careful state management to ensure that the user's inputs remain within the valid range.
+3.  **Image Generation for Sharing:** One of the notable features is the ability to generate a shareable image of the user's prediction. The image generation uses the html-to-image library, and some interesting challenges were tackled to ensure proper rendering of images and handling of cross-browser compatibility issues.
+4.  **Social Media Sharing:** The application integrates with social media platforms like Twitter, allowing users to directly share their predictions. Users are reminded to attach the downloaded image when sharing their prediction.
+5.  **Responsive Design:** The application is designed with mobile-first approach and is responsive across different screen sizes.
