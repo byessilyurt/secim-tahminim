@@ -21,13 +21,14 @@ const ShareModal = ({
   const handleTwitterShare = () => {
     generateImage().then(() => {
       toast.info(
-        "Twitter'a yönlendiriliyorsun. İndirilien resim dosyasını twitine eklemeyi unutma!",
+        "You are being redirected to Twitter. Don't forget to attach the image file to your tweet!",
         {
           position: toast.POSITION.TOP_CENTER,
           autoClose: 5000,
         }
       );
     });
+
     const text = encodeURIComponent("Benim seçim tahminim bu şekilde");
     const url = encodeURIComponent("http://secim-tahminim.firebaseapp.com"); // optional, URL to share
     const hashtags = encodeURIComponent("Seçim2023,14Mayıs "); // optional, comma separated list of hashtags without #

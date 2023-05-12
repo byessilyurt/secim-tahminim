@@ -19,6 +19,21 @@ const CountrySection = () => {
       payload: cityColors,
     });
   }, [cityColors, dispatch]);
+  // in CountrySection.js
+  useEffect(() => {
+    const candidateImages = candidates.map((candidate) => {
+      return new Promise((resolve, reject) => {
+        const img = new Image();
+        img.src = candidate.imageUrl;
+        img.onload = resolve;
+        img.onerror = reject;
+      });
+    });
+
+    Promise.all(candidateImages)
+      .then(() => dispatch({ type: "IMAGES_LOADED", payload: true }))
+      .catch((error) => console.error("Error loading images:", error));
+  }, [dispatch]);
 
   const handleCityClick = (cityId) => {
     setCityColors({
@@ -28,7 +43,7 @@ const CountrySection = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-start min-h-screen bg-white px-4 sm:px-0">
+    <div className="flex flex-col items-center justify-start min-h-screen bg-white sm:px-0">
       {!selectedColor && showTooltip && (
         <div className="fixed md:top-1/3 top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white border border-black p-4 z-50 bg-opacity-50">
           Lütfen, renk seçiniz.
@@ -44,8 +59,8 @@ const CountrySection = () => {
           @byessilyurt
         </a>
       </div>
-      <h1 className="fixed top-0 text-xl sm:text-4xl font-medium md:mt-4 mt-16">
-        Türkiye Seçim Haritası 🇹🇷
+      <h1 className="fixed top-0 text-l sm:text-4xl font-medium md:mt-4 mt-16 whitespace-nowrap mr-3 sm:mr-0	">
+        🇹🇷 2023 Türkiye Seçim Haritası
       </h1>
 
       <ReactSVG

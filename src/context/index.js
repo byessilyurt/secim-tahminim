@@ -14,6 +14,12 @@ export function reducer(state, action) {
       return { ...state, countryData: action.payload };
     case "SHOW_TOOLTIP":
       return { ...state, showTooltip: action.payload };
+    case "IMAGES_LOADED":
+      return {
+        ...state,
+        imagesLoaded: action.payload,
+      };
+
     default:
       return state;
   }
