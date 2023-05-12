@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import Modal from "react-modal";
 import { BsTwitter, BsInstagram, BsWhatsapp } from "react-icons/bs";
 import { toPng } from "html-to-image";
 import ShareContent from "./ShareContent";
+import { AppContext } from "../context";
 
 Modal.setAppElement("#root");
 
@@ -12,7 +13,11 @@ const ShareModal = ({
   candidatesData,
   countriesData,
 }) => {
-  const generateImage = (layout) => {
+  const { state, dispatch } = useContext(AppContext);
+
+  const generateImage = () => {
+    dispatch({ type: "SHOW_TOOLTIP", payload: false });
+
     const node = document.getElementById("share-content");
     node.style.display = "block";
 
@@ -24,10 +29,12 @@ const ShareModal = ({
         link.click();
 
         node.style.display = "none";
+        dispatch({ type: "SHOW_TOOLTIP", payload: true });
       })
       .catch((error) => {
         console.error("oops, something went wrong!", error);
         node.style.display = "none";
+        dispatch({ type: "SHOW_TOOLTIP", payload: true });
       });
   };
   return (
@@ -40,19 +47,19 @@ const ShareModal = ({
       <div className="flex space-x-4">
         <button
           className="p-2 w-32 h-12 text-2xl flex items-center justify-center bg-blue-500 text-white rounded"
-          onClick={() => generateImage("horizontal")}
+          onClick={() => generateImage()}
         >
           <BsTwitter />
         </button>
         <button
           className="p-2 w-32 h-12 text-2xl flex items-center justify-center bg-purple-500 text-white rounded"
-          onClick={() => generateImage("vertical")}
+          onClick={() => generateImage()}
         >
           <BsInstagram />
         </button>
         <button
           className="p-2 w-32 h-12 text-2xl flex items-center justify-center bg-green-500 text-white rounded"
-          onClick={() => generateImage("vertical")}
+          onClick={() => generateImage()}
         >
           <BsWhatsapp />
         </button>

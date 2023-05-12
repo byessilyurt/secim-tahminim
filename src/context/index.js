@@ -1,8 +1,9 @@
-import React, { createContext, useReducer } from "react";
+import React, { createContext, useReducer, useState } from "react";
 
 export const initialState = {
   candidatesData: {},
   countryData: {},
+  showTooltip: true,
 };
 
 export function reducer(state, action) {
@@ -11,6 +12,8 @@ export function reducer(state, action) {
       return { ...state, candidatesData: action.payload };
     case "SET_COUNTRY_DATA":
       return { ...state, countryData: action.payload };
+    case "SHOW_TOOLTIP":
+      return { ...state, showTooltip: action.payload };
     default:
       return state;
   }

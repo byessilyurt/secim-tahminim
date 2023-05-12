@@ -8,7 +8,7 @@ import { AppContext } from "../context";
 
 const CountrySection = () => {
   const { state, dispatch } = useContext(AppContext);
-  const { countryData } = state;
+  const { countryData, showTooltip } = state;
 
   const [selectedColor, setSelectedColor] = useState(null);
   const [cityColors, setCityColors] = useState(countryData);
@@ -29,6 +29,11 @@ const CountrySection = () => {
 
   return (
     <div className="flex flex-col items-center justify-start min-h-screen bg-white px-4 sm:px-0">
+      {!selectedColor && showTooltip && (
+        <div className="fixed md:top-1/3 top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white border border-black p-4 z-50 bg-opacity-50">
+          Lütfen, renk seçiniz.
+        </div>
+      )}
       <div className="fixed top-1 left-0 sm:text-sm text-xs font-medium mt-4 ml-4 flex items-center">
         <FaGithub className="mr-2" />
         <a
@@ -102,8 +107,8 @@ const CountrySection = () => {
                   className="w-12 sm:w-36 h-16 sm:h-36 rounded-full border-3 border-white object-cover"
                 />
               </button>
-              <div className="md:mt-10 mt-4 font-medium md:text-xl text-md text-center">
-                <p className="h-20 sm:h-8">{candidate.name}</p>
+              <div className="md:mt-8 mt-4 font-medium md:text-xl text-md text-center">
+                <p className="h-20 md:h-12 sm:h-8 mb-1">{candidate.name}</p>
                 <p>
                   {candidatePercentage
                     ? `${candidatePercentage.toFixed(2)}%`
