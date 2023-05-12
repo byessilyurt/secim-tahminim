@@ -42,7 +42,7 @@ const CountrySection = () => {
       onTouchStart={() => setMouseDown(true)}
       onTouchEnd={() => setMouseDown(false)}
     >
-      <div className="fixed top-1 left-0 text-sm sm:text-base font-medium mt-4 ml-4 flex items-center">
+      <div className="fixed top-1 left-0 sm:text-sm text-xs font-medium mt-4 ml-4 flex items-center">
         <FaGithub className="mr-2" />
         <a
           className="opacity-50"
@@ -52,7 +52,7 @@ const CountrySection = () => {
           @byessilyurt
         </a>
       </div>
-      <h1 className="fixed top-0 text-xl sm:text-4xl font-medium mt-4 ">
+      <h1 className="fixed top-0 text-xl sm:text-4xl font-medium md:mt-4 mt-16 ">
         Türkiye Seçim Haritası 🇹🇷
       </h1>
 
@@ -96,7 +96,7 @@ const CountrySection = () => {
         wrapper="span"
       />
 
-      <div className="flex justify-center mt-3 space-x-2 sm:space-x-4">
+      <div className="flex justify-center md:mt-3 mt-1 ml-1 space-x-2 sm:space-x-4">
         {candidates.map((candidate) => {
           const candidatePercentage = state.candidatesData[candidate.id];
           return (
@@ -115,8 +115,8 @@ const CountrySection = () => {
                   className="w-12 sm:w-36 h-16 sm:h-36 rounded-full border-3 border-white object-cover"
                 />
               </button>
-              <div className="mt-10 font-medium text-xl text-center">
-                <p>{candidate.name}</p>
+              <div className="md:mt-10 mt-4 font-medium md:text-xl text-md text-center">
+                <p className="h-20 sm:h-8">{candidate.name}</p>
                 <p>
                   {candidatePercentage
                     ? `${candidatePercentage.toFixed(2)}%`
