@@ -2,6 +2,7 @@ import React, { useState, useReducer } from "react";
 import Presidency from "./components/Presidency";
 import Country from "./components/Country";
 import ShareModal from "./components/ShareModal";
+import { ToastContainer } from "react-toastify";
 
 import { AppContext, reducer, initialState } from "./context";
 
@@ -97,6 +98,7 @@ const App = () => {
           )}
         </div>
       </div>
+      <ToastContainer />
     </AppContext.Provider>
   );
 };

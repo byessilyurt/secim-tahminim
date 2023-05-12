@@ -1,9 +1,12 @@
 import React, { useContext } from "react";
 import Modal from "react-modal";
-import { BsTwitter, BsInstagram, BsWhatsapp } from "react-icons/bs";
+import { BsTwitter, BsDownload } from "react-icons/bs";
 import { toPng } from "html-to-image";
 import ShareContent from "./ShareContent";
 import { AppContext } from "../context";
+
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 Modal.setAppElement("#root");
 
@@ -13,7 +16,26 @@ const ShareModal = ({
   candidatesData,
   countriesData,
 }) => {
-  const { state, dispatch } = useContext(AppContext);
+  const { dispatch } = useContext(AppContext);
+
+  const handleTwitterShare = () => {
+    generateImage();
+    toast.info(
+      "Twitter'a yönlendiriliyorsun. İndirilien resim dosyasını twitine eklemeyi unutma!",
+      {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 5000, // auto close after 5 seconds
+      }
+    );
+
+    const text = encodeURIComponent("Benim tahminim bu şekilde");
+    const url = encodeURIComponent("http://secim-tahminim.firebaseapp.com"); // optional, URL to share
+    const hashtags = encodeURIComponent("Seçim2023,14Mayıs "); // optional, comma separated list of hashtags without #
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}&hashtags=${hashtags}`;
+    setTimeout(() => {
+      window.open(twitterUrl, "_blank");
+    }, 5000);
+  };
 
   const generateImage = () => {
     dispatch({ type: "SHOW_TOOLTIP", payload: false });
@@ -47,7 +69,7 @@ const ShareModal = ({
       <div className="flex space-x-4">
         <button
           className="p-2 w-32 h-12 text-2xl flex items-center justify-center bg-blue-500 text-white rounded"
-          onClick={() => generateImage()}
+          onClick={() => handleTwitterShare()}
         >
           <BsTwitter />
         </button>
@@ -55,13 +77,7 @@ const ShareModal = ({
           className="p-2 w-32 h-12 text-2xl flex items-center justify-center bg-purple-500 text-white rounded"
           onClick={() => generateImage()}
         >
-          <BsInstagram />
-        </button>
-        <button
-          className="p-2 w-32 h-12 text-2xl flex items-center justify-center bg-green-500 text-white rounded"
-          onClick={() => generateImage()}
-        >
-          <BsWhatsapp />
+          <BsDownload />
         </button>
       </div>
       <ShareContent
