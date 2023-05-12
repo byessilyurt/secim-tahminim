@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import Modal from "react-modal";
 import { BsTwitter, BsDownload } from "react-icons/bs";
 import { toPng } from "html-to-image";
-import { Canvg } from "canvg";
 import ShareContent from "./ShareContent";
 import { AppContext } from "../context";
 
@@ -38,39 +37,12 @@ const ShareModal = ({
       window.open(twitterUrl, "_blank");
     }, 5000);
   };
-  const generateImage = async () => {
-    return new Promise(async (resolve, reject) => {
+  const generateImage = () => {
+    return new Promise((resolve, reject) => {
       dispatch({ type: "SHOW_TOOLTIP", payload: false });
 
       const node = document.getElementById("share-content");
       node.style.display = "block";
-
-      const images = Array.from(node.getElementsByTagName("img"));
-      const svgs = Array.from(node.getElementsByTagName("svg"));
-
-      // Convert SVGs to canvas
-      for (let svg of svgs) {
-        const canvas = document.createElement("canvas");
-        const ctx = canvas.getContext("2d");
-        const v = await Canvg.from(ctx, svg.outerHTML);
-        v.start();
-        svg.parentNode.replaceChild(canvas, svg);
-      }
-
-      // Convert images to canvas
-      images.forEach((img) => {
-        const canvas = document.createElement("canvas");
-        const ctx = canvas.getContext("2d");
-        img.onload = () => {
-          canvas.width = img.width;
-          canvas.height = img.height;
-          ctx.drawImage(img, 0, 0, img.width, img.height);
-          img.parentNode.replaceChild(canvas, img);
-        };
-        // Force reload of image source to ensure onload event fires
-        // eslint-disable-next-line
-        img.src = img.src;
-      });
 
       // Add a delay before calling toPng
       setTimeout(() => {
@@ -91,7 +63,7 @@ const ShareModal = ({
             dispatch({ type: "SHOW_TOOLTIP", payload: true });
             reject(error);
           });
-      }, 2000); // adjust the delay time as needed
+      }, 4000); // adjust the delay time as needed
     });
   };
 
