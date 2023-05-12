@@ -15,9 +15,6 @@ const ShareModal = ({
   const generateImage = (layout) => {
     const node = document.getElementById("share-content");
     node.style.display = "block";
-    node.className =
-      layout === "vertical" ? "vertical-classes" : "horizontal-classes";
-
     toPng(node)
       .then((dataUrl) => {
         const link = document.createElement("a");
