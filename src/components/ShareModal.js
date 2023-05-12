@@ -38,7 +38,6 @@ const ShareModal = ({
       window.open(twitterUrl, "_blank");
     }, 5000);
   };
-
   const generateImage = async () => {
     return new Promise(async (resolve, reject) => {
       dispatch({ type: "SHOW_TOOLTIP", payload: false });
@@ -73,23 +72,26 @@ const ShareModal = ({
         img.src = img.src;
       });
 
-      toPng(node)
-        .then((dataUrl) => {
-          const link = document.createElement("a");
-          link.download = "image.png";
-          link.href = dataUrl;
-          link.click();
+      // Add a delay before calling toPng
+      setTimeout(() => {
+        toPng(node)
+          .then((dataUrl) => {
+            const link = document.createElement("a");
+            link.download = "image.png";
+            link.href = dataUrl;
+            link.click();
 
-          node.style.display = "none";
-          dispatch({ type: "SHOW_TOOLTIP", payload: true });
-          resolve();
-        })
-        .catch((error) => {
-          console.error("oops, something went wrong!", error);
-          node.style.display = "none";
-          dispatch({ type: "SHOW_TOOLTIP", payload: true });
-          reject(error);
-        });
+            node.style.display = "none";
+            dispatch({ type: "SHOW_TOOLTIP", payload: true });
+            resolve();
+          })
+          .catch((error) => {
+            console.error("oops, something went wrong!", error);
+            node.style.display = "none";
+            dispatch({ type: "SHOW_TOOLTIP", payload: true });
+            reject(error);
+          });
+      }, 2000); // adjust the delay time as needed
     });
   };
 
