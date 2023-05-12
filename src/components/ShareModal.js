@@ -28,7 +28,7 @@ const ShareModal = ({
       }
     );
 
-    const text = encodeURIComponent("Benim tahminim bu şekilde");
+    const text = encodeURIComponent("Benim seçim tahminim bu şekilde");
     const url = encodeURIComponent("http://secim-tahminim.firebaseapp.com"); // optional, URL to share
     const hashtags = encodeURIComponent("Seçim2023,14Mayıs "); // optional, comma separated list of hashtags without #
     const twitterUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}&hashtags=${hashtags}`;
