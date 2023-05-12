@@ -28,12 +28,6 @@ const CountrySection = () => {
     });
   };
 
-  const handleCityMouseEnter = (cityId) => {
-    if (mouseDown) {
-      handleCityClick(cityId);
-    }
-  };
-
   return (
     <div
       className="flex flex-col items-center justify-start min-h-screen bg-white px-4 sm:px-0"
