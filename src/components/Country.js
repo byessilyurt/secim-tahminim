@@ -66,7 +66,6 @@ const CountrySection = () => {
 
       <ReactSVG
         src={turkeySvg}
-        // Inside the beforeInjection function
         beforeInjection={(svg) => {
           svg.classList.add(
             "w-full",
