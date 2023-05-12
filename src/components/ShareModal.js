@@ -15,6 +15,7 @@ const ShareModal = ({
   const generateImage = (layout) => {
     const node = document.getElementById("share-content");
     node.style.display = "block";
+
     toPng(node)
       .then((dataUrl) => {
         const link = document.createElement("a");
