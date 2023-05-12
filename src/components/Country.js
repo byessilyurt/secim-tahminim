@@ -5,6 +5,7 @@ import { FaGithub } from "react-icons/fa";
 import { colorMap, candidates } from "../data";
 import turkeySvg from "../images/country/turkey.svg";
 import { AppContext } from "../context";
+import ImageToBase64 from "./ImageToBase64";
 
 const CountrySection = () => {
   const { state, dispatch } = useContext(AppContext);
@@ -116,10 +117,12 @@ const CountrySection = () => {
                   candidate.withdrawn ? "" : "cursor-pointer"
                 }`}
               >
-                <img
-                  src={candidate.imageUrl}
+                <ImageToBase64
+                  imgSrc={candidate.imageUrl}
                   alt={candidate.name}
-                  className="w-12 sm:w-36 h-16 sm:h-36 rounded-full border-3 border-white object-cover"
+                  className={
+                    "w-12 sm:w-36 h-16 sm:h-36 rounded-full border-3 border-white object-cover"
+                  }
                 />
               </button>
               <div className="md:mt-8 mt-4 font-medium md:text-xl text-md text-center">

@@ -1,13 +1,8 @@
 import Country from "./Country";
 
-const ShareContent = ({ id, layout, candidatesData, countriesData }) => {
-  const classes =
-    layout === "vertical"
-      ? "vertical-classes hidden"
-      : "horizontal-classes hidden";
-
+const ShareContent = ({ id, countriesData }) => {
   return (
-    <div id={id} className={classes}>
+    <div id={id} className="hidden">
       <Country countriesData={countriesData} />
     </div>
   );

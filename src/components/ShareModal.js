@@ -21,7 +21,7 @@ const ShareModal = ({
   const handleTwitterShare = () => {
     generateImage().then(() => {
       toast.info(
-        "You are being redirected to Twitter. Don't forget to attach the image file to your tweet!",
+        "Twitter'a yönlendiriliyorsun. İndirilen resim dosyasını twitine eklemeyi unutma!",
         {
           position: toast.POSITION.TOP_CENTER,
           autoClose: 5000,
