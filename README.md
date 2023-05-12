@@ -1,4 +1,4 @@
-[See Demo](https://secim-tarihim.firebaseapp.com)
+[See Demo](https://secim-tahminim.firebaseapp.com)
 This project is an interactive prediction tool for the 2023 Turkey Elections. The application allows users to visualize their election predictions, by choosing the winning party for each city, and specifying the vote percentage for each presidential candidate.
 
 The main features of the application are:
