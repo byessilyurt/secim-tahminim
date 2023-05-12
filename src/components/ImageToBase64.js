@@ -7,7 +7,7 @@ export default function ImageToBase64({ imgSrc, alt, className }) {
     getBase64FromUrl(imgSrc)
       .then((base64Data) => setBase64Src(base64Data))
       .catch((err) => console.error(err));
-  }, [imgSrc]);
+  }, [imgSrc, getBase64FromUrl]);
 
   const getBase64FromUrl = async (url) => {
     const data = await fetch(url);
