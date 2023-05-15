@@ -63,7 +63,7 @@ const ShareModal = ({
             dispatch({ type: "SHOW_TOOLTIP", payload: true });
             reject(error);
           });
-      }, 20000); // adjust the delay time as needed
+      }, 5000); // adjust the delay time as needed
     });
   };
 
